@@ -1,4 +1,3 @@
-import cors from 'cors';
 import { Router } from "express";
 import { project } from "./project.route";
 import { user } from './user.route';
