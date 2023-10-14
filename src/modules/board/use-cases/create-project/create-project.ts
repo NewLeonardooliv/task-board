@@ -17,7 +17,7 @@ export class CreateProject {
     const project = Project.create({
       name,
       key: Key.create(key),
-      leaderId: new UniqueEntityId(leaderId).toString(),
+      leaderId: new UniqueEntityId(leaderId),
       coverImg: coverImg
     });
 

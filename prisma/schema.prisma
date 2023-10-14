@@ -34,6 +34,7 @@ model Project {
   cover_img  String
   leader     User     @relation(fields: [leader_id], references: [id])
   Task       Task[]
+  Column     Column[]
 
   @@map("projects")
 }
@@ -61,10 +62,13 @@ model Task {
 }
 
 model Column {
-  id    String @id @default(uuid())
-  name  String
-  order Int
-  Task  Task[]
+  id         String  @id @default(uuid())
+  name       String
+  color      String
+  order      Int
+  project_id String
+  project    Project @relation(fields: [project_id], references: [id])
+  Task       Task[]
 
   @@map("columns")
 }

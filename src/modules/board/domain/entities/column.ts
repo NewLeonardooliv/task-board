@@ -6,6 +6,7 @@ type ColumnProps = {
   name: string;
   order: number;
   color: string;
+  projectId: UniqueEntityId,
   createdAt: Date;
   updatedAt?: Date;
 }
@@ -21,6 +22,10 @@ export class Column extends Entity<ColumnProps>{
 
   get color() {
     return this.props.color;
+  }
+
+  get projectId() {
+    return this.props.projectId;
   }
 
   get createdAt() {

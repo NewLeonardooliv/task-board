@@ -6,7 +6,7 @@ import { Key } from "./value-objects/key";
 export type ProjectProps = {
   name: string;
   key: Key;
-  leaderId: string;
+  leaderId: UniqueEntityId;
   coverImg: string;
   createdAt: Date;
   updatedAt?: Date;

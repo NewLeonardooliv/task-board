@@ -10,7 +10,7 @@ export class PrismaProjectRepository implements ProjectRepository {
         name: project.name,
         cover_img: project.coverImg,
         key: project.key.value,
-        leader_id: project.leaderId,
+        leader_id: project.leaderId.toString(),
       }
     })
   }
