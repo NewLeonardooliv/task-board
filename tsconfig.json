@@ -1,0 +1,38 @@
+{
+	"compilerOptions": {
+		"target": "es2022",
+		"module": "commonjs",
+		"rootDir": "./src",
+		"outDir": "./dist",
+		"baseUrl": ".",
+		"paths": {
+			"@config/*": [
+				"./src/config/*"
+			],
+			"@core/*": [
+				"./src/core/*"
+			],
+			"@helpers/*": [
+				"./src/helpers/*"
+			],
+			"@infra/*": [
+				"./src/infra/*"
+			],
+			"@modules/*": [
+				"./src/modules/*"
+			],
+			"@shared/*": [
+				"./src/shared/*"
+			],
+			"@constants/*": [
+				"./src/constants/*"
+			],
+		},
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+	}
+}

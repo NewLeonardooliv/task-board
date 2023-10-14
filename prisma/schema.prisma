@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id
+  name          String?
+  email         String    @unique
+  password      String
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @default(now()) @updatedAt
+  reportedTasks Task[]    @relation("reportedBy")
+  assignedTasks Task[]    @relation("assignedTo")
+  Project       Project[]
+
+  @@map("users")
+}
+
+model Project {
+  id         String   @id @default(uuid())
+  name       String
+  key        String
+  leader_id  String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+  cover_img  String
+  leader     User     @relation(fields: [leader_id], references: [id])
+  Task       Task[]
+
+  @@map("projects")
+}
+
+model Task {
+  id          String         @id @default(uuid())
+  description String
+  toSolve     String
+  toReproduce String
+  priority    String
+  reporter_id String
+  assignee_id String
+  difficulty  DifficultyType
+  type        String
+  column_id   String
+  project_id  String
+  created_at  DateTime       @default(now())
+  updated_at  DateTime       @default(now()) @updatedAt
+  project     Project        @relation(fields: [project_id], references: [id])
+  reporter    User           @relation("reportedBy", fields: [reporter_id], references: [id])
+  assignee    User           @relation("assignedTo", fields: [assignee_id], references: [id])
+  column      Column         @relation(fields: [column_id], references: [id])
+
+  @@map("tasks")
+}
+
+model Column {
+  id    String @id @default(uuid())
+  name  String
+  order Int
+  Task  Task[]
+
+  @@map("columns")
+}
+
+enum DifficultyType {
+  HIGHEST
+  MEDIUM
+  LOW
+  LOWEST
+}
