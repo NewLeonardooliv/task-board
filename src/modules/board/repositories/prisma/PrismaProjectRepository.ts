@@ -32,4 +32,16 @@ export class PrismaProjectRepository implements ProjectRepository {
 
     return projects.map((project) => ProjectMapper.toDomain(project));
   }
+
+  async find(projectId: string): Promise<Project | boolean> {
+    const project = await prisma.project.findFirst({
+      where: {
+        id: projectId
+      }
+    });
+
+    if (!project) return false;
+
+    return ProjectMapper.toDomain(project);
+  }
 }

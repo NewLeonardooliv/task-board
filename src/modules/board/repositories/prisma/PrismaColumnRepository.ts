@@ -69,4 +69,17 @@ export class PrismaColumnRepository implements ColumnRepository {
     return columns.map((column) => ColumnMapper.toDomain(column))
   }
 
+  async findFirstColumn(projectId: string): Promise<Column> {
+    const column = await prisma.column.findFirst({
+      where: {
+        project_id: projectId,
+      },
+      orderBy: {
+        order: 'asc'
+      }
+    });
+
+
+    return ColumnMapper.toDomain(column);
+  }
 }

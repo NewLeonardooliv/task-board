@@ -34,4 +34,21 @@ export class PrismaUserRepository implements UserRepository {
       password: await Password.create(user?.password),
     });
   }
+
+  async find(id: string): Promise<boolean | User> {
+    const user = await prisma.user.findFirst({
+      where: {
+        id: id
+      }
+    });
+
+    if (!user) return false;
+
+    return User.create({
+      email: user?.email,
+      name: user?.name,
+      profileId: user?.profile_id,
+      password: await Password.create(user?.password),
+    });
+  }
 }

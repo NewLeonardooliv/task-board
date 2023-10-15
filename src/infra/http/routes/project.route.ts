@@ -10,7 +10,7 @@ import { Router } from 'express';
 
 const project = Router();
 
-project.use(adapterMiddleware(accessTokenMiddleware))
+project.use(adapterMiddleware(accessTokenMiddleware));
 project.post('/', adapterRoute(createProjectController));
 project.get('/', adapterRoute(listProjectsController));
 project.get('/:projectId/columns', adapterRoute(listAllProjectColumnsController));
