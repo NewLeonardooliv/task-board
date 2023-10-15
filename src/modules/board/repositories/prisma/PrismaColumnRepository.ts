@@ -2,6 +2,7 @@ import { Column } from "@modules/board/domain/entities/column";
 import { ColumnRepository } from "../column-respository";
 import { prisma } from "@infra/prisma/client";
 import { UniqueEntityId } from "@core/entities/unique-entity-id";
+import { ColumnMapper } from "@modules/board/mapper/column-mapper";
 
 export class PrismaColumnRepository implements ColumnRepository {
   async getByOrder(projectId: string, order: number): Promise<Column | boolean> {
@@ -54,8 +55,24 @@ export class PrismaColumnRepository implements ColumnRepository {
     });
   }
 
-  listByProject(projectId: string): Promise<Column[]> {
-    throw new Error("Method not implemented.");
+  async listByProject(projectId: string): Promise<Column[]> {
+    const columns = await prisma.column.findMany({
+      where: {
+        project_id: projectId,
+      },
+      orderBy: {
+        order: 'desc',
+      },
+    });
+
+    return columns.map((column) => ColumnMapper.toDomain(column))
+
+    // return columns.map(({ color, name, project_id, id, order }) => Column.create({
+    //   color,
+    //   name,
+    //   order,
+    //   projectId: new UniqueEntityId(project_id),
+    // }, new UniqueEntityId(id)));
   }
 
 }

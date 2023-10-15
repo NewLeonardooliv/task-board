@@ -2,12 +2,21 @@ import { Entity } from "@core/entities/entity";
 import { UniqueEntityId } from "@core/entities/unique-entity-id";
 import { Optional } from "@core/types/optional";
 
+export const priorityTypes = [
+  'HIGHEST',
+  'MEDIUM',
+  'LOW',
+  'LOWEST',
+] as const;
+
+export type PriorityTypes = typeof priorityTypes[number];
+
 export type TaskProps = {
   title: string;
   description: string;
   toSolve: string;
   toReproduce: string;
-  priority: string;
+  priority: PriorityTypes;
   reporter: string;
   assigneeId: string;
   difficulty: string;
