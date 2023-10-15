@@ -44,4 +44,21 @@ export class PrismaProjectRepository implements ProjectRepository {
 
     return ProjectMapper.toDomain(project);
   }
+
+  async listUserProjects(userId: string): Promise<Project[]> {
+    const projects = await prisma.project.findMany({
+      where: {
+        ProjectUsers: {
+          some: {
+            user_id: userId,
+          }
+        }
+      },
+      include: {
+        ProjectUsers: true
+      }
+    });
+
+    return projects.map((project) => ProjectMapper.toDomain(project));
+  }
 }

@@ -1,11 +1,18 @@
-import { Project } from "@modules/board/domain/entities/project";
+import { Profiles } from "@constants/profiles";
 import { ProjectRepository } from "../../repositories/project-repository";
+import { Project } from "@modules/board/domain/entities/project";
 
+export type ListProjectsRequest = {
+  user: {
+    userId: string;
+    profileId: string;
+  };
+}
 export class ListProjects {
   constructor(private projectRepository: ProjectRepository) { }
 
-  async execute() {
-    const projects = await this.projectRepository.list();
+  async execute({ user }: ListProjectsRequest) {
+    const projects = await this.getListProjects({ user });
 
     const processedProjects = projects.map((column) => ({
       id: column.id.toString(),
@@ -17,5 +24,13 @@ export class ListProjects {
     }));
 
     return processedProjects;
+  }
+
+  private async getListProjects({ user }: ListProjectsRequest): Promise<Project[]> {
+    if (user.profileId == Profiles.ADMIN) {
+      return await this.projectRepository.list();
+    }
+
+    return await this.projectRepository.listUserProjects(user.userId);
   }
 }
