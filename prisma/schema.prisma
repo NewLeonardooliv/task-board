@@ -62,12 +62,14 @@ model Task {
 }
 
 model Column {
-  id         String  @id @default(uuid())
+  id         String   @id @default(uuid())
   name       String
   color      String
   order      Int
   project_id String
-  project    Project @relation(fields: [project_id], references: [id])
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+  project    Project  @relation(fields: [project_id], references: [id])
   Task       Task[]
 
   @@map("columns")
