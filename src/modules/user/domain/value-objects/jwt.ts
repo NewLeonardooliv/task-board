@@ -48,7 +48,8 @@ export class JWT {
   static async signUser(user: User): Promise<JWT> {
     const token = sign(
       {
-        sub: user.id.toString(),
+        userId: user.id.toString(),
+        profileId: user.profileId,
       },
       auth.secretKey,
       {
