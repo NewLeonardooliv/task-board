@@ -13,6 +13,13 @@ export class PrismaProjectRepository implements ProjectRepository {
         key: project.key.value,
         leader_id: project.leaderId.toString(),
       }
+    });
+
+    await prisma.projectUsers.create({
+      data: {
+        project_id: project.id.toString(),
+        user_id: project.leaderId.toString(),
+      }
     })
   }
 
