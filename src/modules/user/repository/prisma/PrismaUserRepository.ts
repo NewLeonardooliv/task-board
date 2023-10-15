@@ -10,6 +10,7 @@ export class PrismaUserRepository implements UserRepository {
         id: user.id.toString(),
         name: user.name,
         password: user.password.value,
+        profile_id: user.profileId,
         email: user.email
       }
     });
@@ -27,6 +28,7 @@ export class PrismaUserRepository implements UserRepository {
     return User.create({
       email: user?.email,
       name: user?.name,
+      profileId: user?.profile_id,
       password: await Password.create(user?.password),
     });
   }

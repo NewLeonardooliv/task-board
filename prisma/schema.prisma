@@ -11,32 +11,54 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id            String         @id @default(uuid())
   name          String?
-  email         String    @unique
+  email         String         @unique
   password      String
-  created_at    DateTime  @default(now())
-  updated_at    DateTime  @default(now()) @updatedAt
-  reportedTasks Task[]    @relation("reportedBy")
-  assignedTasks Task[]    @relation("assignedTo")
+  profile_id    String
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @default(now()) @updatedAt
+  profile       Profile        @relation(fields: [profile_id], references: [id])
+  reportedTasks Task[]         @relation("reportedBy")
+  assignedTasks Task[]         @relation("assignedTo")
   Project       Project[]
+  ProjectUsers  ProjectUsers[]
 
   @@map("users")
 }
 
+model Profile {
+  id   String @id @default(uuid())
+  name String
+  User User[]
+
+  @@map("profiles")
+}
+
 model Project {
-  id         String   @id @default(uuid())
-  name       String
-  key        String
-  leader_id  String
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now()) @updatedAt
-  cover_img  String
-  leader     User     @relation(fields: [leader_id], references: [id])
-  Task       Task[]
-  Column     Column[]
+  id           String         @id @default(uuid())
+  name         String
+  key          String
+  leader_id    String
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @default(now()) @updatedAt
+  cover_img    String
+  leader       User           @relation(fields: [leader_id], references: [id])
+  Task         Task[]
+  Column       Column[]
+  ProjectUsers ProjectUsers[]
 
   @@map("projects")
+}
+
+model ProjectUsers {
+  id         String  @id @default(uuid())
+  project_id String
+  user_id    String
+  project    Project @relation(fields: [project_id], references: [id])
+  user       User    @relation(fields: [user_id], references: [id])
+
+  @@map("project_users")
 }
 
 model Task {
