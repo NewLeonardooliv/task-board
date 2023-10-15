@@ -56,6 +56,7 @@ export class PrismaColumnRepository implements ColumnRepository {
   }
 
   async listByProject(projectId: string): Promise<Column[]> {
+    console.log(projectId);
     const columns = await prisma.column.findMany({
       where: {
         project_id: projectId,
@@ -66,13 +67,6 @@ export class PrismaColumnRepository implements ColumnRepository {
     });
 
     return columns.map((column) => ColumnMapper.toDomain(column))
-
-    // return columns.map(({ color, name, project_id, id, order }) => Column.create({
-    //   color,
-    //   name,
-    //   order,
-    //   projectId: new UniqueEntityId(project_id),
-    // }, new UniqueEntityId(id)));
   }
 
 }

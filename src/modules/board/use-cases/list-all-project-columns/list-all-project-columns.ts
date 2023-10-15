@@ -4,7 +4,7 @@ export type ListAllColumnsRequest = {
   projectId: string;
 }
 
-export class ListAllColumns {
+export class ListAllProjectColumns {
   constructor(private columnRepository: ColumnRepository) { }
 
   async execute({ projectId }: ListAllColumnsRequest) {

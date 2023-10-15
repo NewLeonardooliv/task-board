@@ -1,9 +1,9 @@
 import { Controller } from "@core/infra/Controller";
 import { ok } from "@core/infra/HttpResponse";
-import { ListAllColumns, ListAllColumnsRequest } from "./list-all-columns";
+import { ListAllProjectColumns, ListAllColumnsRequest } from "./list-all-project-columns";
 
-export class ListAllColumnsController implements Controller {
-  constructor(private readonly listAllColumnsUseCase: ListAllColumns) { }
+export class ListAllProjectColumnsController implements Controller {
+  constructor(private readonly listAllColumnsUseCase: ListAllProjectColumns) { }
 
   async handle({ projectId }: ListAllColumnsRequest) {
     const columns = await this.listAllColumnsUseCase.execute({ projectId });
