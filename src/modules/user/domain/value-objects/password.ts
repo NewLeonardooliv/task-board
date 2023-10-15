@@ -1,8 +1,8 @@
-import { hash } from "bcrypt";
+import bcrypt from 'bcrypt';
 import { InvalidPasswordError } from "./errors/InvalidPasswordError";
 
 export class Password {
-  constructor(public value: string) {
+  constructor(public value: string, private readonly hashed?: boolean) {
     this.value = value;
   }
   static isValid(password: string): boolean {
@@ -17,9 +17,18 @@ export class Password {
       throw new InvalidPasswordError();
     }
 
-    const passwordHashed = await hash(password, 8);
-
-    return new Password(passwordHashed);
+    return new Password(password);
   }
 
+  public async comparePassword(plainTextPassword: string): Promise<boolean> {
+		return await bcrypt.compare(plainTextPassword, this.value);
+	}
+
+  public async getHashedValue(): Promise<string> {
+    if (this.hashed) {
+      return this.value
+    }
+
+    return await bcrypt.hash(this.value, 8)
+  }
 }

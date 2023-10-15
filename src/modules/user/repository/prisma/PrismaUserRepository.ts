@@ -2,16 +2,18 @@ import { prisma } from "@infra/prisma/client";
 import { UserRepository } from "../user-repository";
 import { User } from "@modules/user/domain/user";
 import { Password } from "@modules/user/domain/value-objects/password";
+import { UserMapper } from "@modules/user/mapper/user-mapper";
 
 export class PrismaUserRepository implements UserRepository {
   async create(user: User): Promise<void> {
+    const data = await UserMapper.toPersistence(user);
     await prisma.user.create({
       data: {
-        id: user.id.toString(),
-        name: user.name,
-        password: user.password.value,
-        profile_id: user.profileId,
-        email: user.email
+        id: data.id.toString(),
+        name: data.name,
+        password: data.password,
+        profile_id: data.profileId,
+        email: data.email
       }
     });
   }
