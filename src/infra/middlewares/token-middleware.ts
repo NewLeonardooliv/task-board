@@ -12,7 +12,7 @@ class TokenMiddleware implements Middleware {
     if (!authorization) {
       return unauthorized({
         name: 'Unauthorized',
-        message: 'Token não é valido',
+        message: 'Invalid Token',
       })
     }
     const token = authorization.slice(7);
@@ -23,11 +23,10 @@ class TokenMiddleware implements Middleware {
           resolve(
             unauthorized({
               name: 'Unauthorized',
-              message: 'Token não é valido',
+              message: 'Invalid Token',
             })
           );
         } else {
-          console.log(user);
           resolve(ok({ user: user }));
         }
       });

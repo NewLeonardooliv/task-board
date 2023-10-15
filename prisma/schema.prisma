@@ -62,23 +62,24 @@ model ProjectUsers {
 }
 
 model Task {
-  id          String         @id @default(uuid())
-  description String
-  toSolve     String
-  toReproduce String
-  priority    String
-  reporter_id String
-  assignee_id String
-  difficulty  DifficultyType
-  type        String
-  column_id   String
-  project_id  String
-  created_at  DateTime       @default(now())
-  updated_at  DateTime       @default(now()) @updatedAt
-  project     Project        @relation(fields: [project_id], references: [id])
-  reporter    User           @relation("reportedBy", fields: [reporter_id], references: [id])
-  assignee    User           @relation("assignedTo", fields: [assignee_id], references: [id])
-  column      Column         @relation(fields: [column_id], references: [id])
+  id           String       @id @default(uuid())
+  title        String
+  description  String
+  to_solve     String
+  to_reproduce String
+  priority     PriorityType
+  reporter_id  String
+  assignee_id  String
+  difficulty   String
+  type         String
+  column_id    String
+  project_id   String
+  created_at   DateTime     @default(now())
+  updated_at   DateTime     @default(now()) @updatedAt
+  project      Project      @relation(fields: [project_id], references: [id])
+  reporter     User         @relation("reportedBy", fields: [reporter_id], references: [id])
+  assignee     User         @relation("assignedTo", fields: [assignee_id], references: [id])
+  column       Column       @relation(fields: [column_id], references: [id])
 
   @@map("tasks")
 }
@@ -97,7 +98,7 @@ model Column {
   @@map("columns")
 }
 
-enum DifficultyType {
+enum PriorityType {
   HIGHEST
   MEDIUM
   LOW

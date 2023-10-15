@@ -47,6 +47,7 @@ export class PrismaColumnRepository implements ColumnRepository {
   async create(column: Column): Promise<void> {
     await prisma.column.create({
       data: {
+        id: column.id.toString(),
         name: column.name,
         order: column.order,
         project_id: column.projectId.toString(),

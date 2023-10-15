@@ -5,13 +5,13 @@ type ListAllTasksProjectRequest = {
   projectId: string;
 }
 
-type ListAllTasksProjectResponse = Task[];
+type ListProjectTasksResponse = Task[];
 
-export class ListAllTasksProject {
+export class ListProjectTasks {
   constructor(private readonly taskRepository: TaskRepository) { }
 
-  async execute({ projectId }: ListAllTasksProjectRequest): Promise<ListAllTasksProjectResponse> {
-    const tasks = this.taskRepository.listByProject(projectId);
+  async execute({ projectId }: ListAllTasksProjectRequest): Promise<ListProjectTasksResponse> {
+    const tasks = await this.taskRepository.listByProject(projectId);
 
     return tasks;
   }

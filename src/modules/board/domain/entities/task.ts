@@ -1,28 +1,21 @@
 import { Entity } from "@core/entities/entity";
 import { UniqueEntityId } from "@core/entities/unique-entity-id";
 import { Optional } from "@core/types/optional";
-
-export const priorityTypes = [
-  'HIGHEST',
-  'MEDIUM',
-  'LOW',
-  'LOWEST',
-] as const;
-
-export type PriorityTypes = typeof priorityTypes[number];
+import { Priority } from "./value-objects/priority";
 
 export type TaskProps = {
   title: string;
   description: string;
   toSolve: string;
   toReproduce: string;
-  priority: PriorityTypes;
-  reporter: string;
-  assigneeId: string;
+  priority: Priority;
+  reporterId: UniqueEntityId;
+  assigneeId: UniqueEntityId;
+  columnId: UniqueEntityId;
   difficulty: string;
   type: string;
   projectId: UniqueEntityId;
-  createdAt: Date;
+  createdAt?: Date;
   updatedAt?: Date;
 }
 
@@ -43,12 +36,16 @@ export class Task extends Entity<TaskProps>{
     return this.props.toReproduce;
   }
 
-  get priority() {
+  get priority(): Priority {
     return this.props.priority;
   }
 
-  get reporter() {
-    return this.props.reporter;
+  get reporterId() {
+    return this.props.reporterId;
+  }
+
+  get columnId() {
+    return this.props.columnId;
   }
 
   get assigneeId() {
