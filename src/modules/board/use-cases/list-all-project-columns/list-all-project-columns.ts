@@ -18,8 +18,6 @@ export class ListAllProjectColumns {
       projectId: column.props.projectId.toString()
     }));
 
-    processedColumns.sort((a, b) => a.order - b.order);
-
     return processedColumns;
   }
 }

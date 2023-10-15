@@ -6,7 +6,6 @@ export class Password {
     this.value = value;
   }
   static isValid(password: string): boolean {
-    console.log(password);
     if (!password || password.trim().length < 8) {
       return false;
     }

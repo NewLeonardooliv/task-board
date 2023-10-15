@@ -56,13 +56,12 @@ export class PrismaColumnRepository implements ColumnRepository {
   }
 
   async listByProject(projectId: string): Promise<Column[]> {
-    console.log(projectId);
     const columns = await prisma.column.findMany({
       where: {
         project_id: projectId,
       },
       orderBy: {
-        order: 'desc',
+        order: 'asc',
       },
     });
 
