@@ -50,6 +50,16 @@ export class PrismaUserRepository implements UserRepository {
       name: user?.name,
       profileId: user?.profile_id,
       password: await Password.create(user?.password),
+    }, new UniqueEntityId(user.id));
+  }
+
+  async list(): Promise<User[]> {
+    const users = await prisma.user.findMany({
+      orderBy: {
+        created_at: 'asc',
+      }
     });
+  
+    return users.map((user) => UserMapper.toDomain(user));
   }
 }
