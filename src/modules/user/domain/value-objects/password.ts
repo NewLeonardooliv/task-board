@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import { InvalidPasswordError } from "./errors/InvalidPasswordError";
+import { User } from '../user';
 
 export class Password {
   constructor(public value: string, private readonly hashed?: boolean) {
@@ -21,8 +22,8 @@ export class Password {
   }
 
   public async comparePassword(plainTextPassword: string): Promise<boolean> {
-		return await bcrypt.compare(plainTextPassword, this.value);
-	}
+    return await bcrypt.compare(plainTextPassword, this.value);
+  }
 
   public async getHashedValue(): Promise<string> {
     if (this.hashed) {
@@ -30,5 +31,13 @@ export class Password {
     }
 
     return await bcrypt.hash(this.value, 8)
+  }
+
+  static default(name: string) {
+    return `123%${this.prepareNameToPassword(name)}%123`
+  }
+
+  private static prepareNameToPassword(name: string) {
+    return name.toLowerCase().replace(/ /g, '');
   }
 }

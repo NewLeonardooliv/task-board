@@ -5,7 +5,7 @@ import { UserRepository } from "../../repository/user-repository";
 export type RegisterUserRequest = {
   name: string;
   email: string;
-  password: string;
+  password?: string;
   profileId: string;
 }
 
@@ -26,7 +26,11 @@ export class RegisterUser {
       throw new Error('User already exists');
     }
 
-    const user = await User.create({
+    if (!password) {
+      password = Password.default(name);
+    }
+
+    const user = User.create({
       name,
       email,
       password: await Password.create(password),
