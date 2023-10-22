@@ -3,25 +3,36 @@ import Input from "../Input";
 import SelectInput from "../SelectInput";
 import Textarea from "../Textarea";
 import Button from "../Button";
+import fetchBoard from "@/service/fetch.board";
+import { TaskProps } from "@/pages/kanban";
 
-const CreateTaskForm: React.FC = () => {
+type CreateTaskProps = {
+	tasks: TaskProps[];
+	setTasks: any;
+	projectId: string | string[] | undefined;
+}
+
+const CreateTaskForm = ({ tasks, setTasks, projectId }: CreateTaskProps) => {
 	const cleanForm = {
-		title: "",
-		description: "",
-		toSolve: "",
-		toReproduce: "",
-		priority: "",
-		reporterId: "",
-		assigneeId: "",
-		difficulty: "",
-		type: "",
+		title: "aaaa",
+		description: "aaaaaa",
+		toSolve: "aaaaaa",
+		toReproduce: "aaaaaaa",
+		priority: "HIGHEST",
+		assigneeId: "5eb7dd04-226c-4294-bdb4-2124f080e09d",
+		difficulty: "Hard",
+		type: "Hard",
 	};
 
 	const [formData, setFormData] = useState(cleanForm);
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log(formData)
+
+		const task = await fetchBoard(`project/${projectId}/tasks`, 'POST', formData);
+		setTasks([...tasks, task]);
+
+		setFormData(cleanForm);
 	};
 
 	return (

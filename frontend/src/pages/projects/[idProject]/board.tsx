@@ -110,9 +110,9 @@ const Kanban: React.FC = () => {
 	return (
 		<div className='flex flex-col gap-4'>
 			<Modal title='Tarefas' description='Adicionar Tarefa' onClose={() => setIsCreateTaskFormOpen(false)} isOpen={isCreateTaskFormOpen}>
-				<CreateTaskForm />
+				<CreateTaskForm tasks={tasks} setTasks={setTasks} projectId={router?.query?.idProject} />
 			</Modal>
-			<h1 className="text-3xl font-bold mb-4 text-foreground">Tarefas {poroject.name}</h1>
+			<h1 className="text-3xl font-bold mb-4 text-foreground">Tarefas {poroject?.name}</h1>
 			<div className='flex justify-between py-4 h-full'>
 				<Input
 					type="text"
@@ -134,7 +134,7 @@ const Kanban: React.FC = () => {
 				{isLoading ? (
 					<h3 className='text-foreground'>Loading...</h3>
 				) : (
-					columns.map((column: ColumnProps, index) => (
+					columns?.map((column: ColumnProps, index) => (
 						<KanbanColumn
 							key={index}
 							color={column.color}
