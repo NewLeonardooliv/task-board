@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Task Board
 
 ![board](https://i.imgur.com/SkwHs1A.png)
