@@ -1,8 +1,6 @@
-import { Profiles } from "@constants/profiles";
 import { ProjectRepository } from "../../repositories/project-repository";
-import { Project } from "@modules/board/domain/entities/project";
 
-export type ListProjectsRequest = {
+export type getProjectRequest = {
   projectId: string;
   user: {
     userId: string;
@@ -12,7 +10,7 @@ export type ListProjectsRequest = {
 export class GetProject {
   constructor(private projectRepository: ProjectRepository) { }
 
-  async execute({ projectId, user }: ListProjectsRequest) {
+  async execute({ projectId, user }: getProjectRequest) {
     const project = await this.projectRepository.find(projectId);
 
     if (typeof project === 'boolean') {
