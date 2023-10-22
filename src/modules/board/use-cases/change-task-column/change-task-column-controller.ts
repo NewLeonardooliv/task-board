@@ -8,9 +8,9 @@ export class ChangeTaskColumnController implements Controller {
 
   async handle({ taskId, columnId }: ChangeTaskColumnRequest): Promise<HttpResponse> {
     try {
-      await this.changeTaskColumn.execute({ taskId, columnId });
+      const task = await this.changeTaskColumn.execute({ taskId, columnId });
       
-      return created();
+      return created(task);
     } catch (error) {
       return fail(error);
     }
