@@ -1,29 +1,41 @@
 import React from 'react';
 
 export type Option = {
-	value: number;
-	label: string;
+	value: number | string;
+	label: number | string;
 }
 
 export type SelectInputProps = {
-	value: number;
+	id?: string;
+	value: number | string;
 	options: Option[];
+	label?: string;
 	onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const SelectInput: React.FC<SelectInputProps> = ({ value, options, onChange }) => {
+const SelectInput: React.FC<SelectInputProps> = ({ value, options, onChange, ...props }) => {
 	return (
-		<select
-			value={value}
-			onChange={onChange}
-			className="bg-current text-foreground rounded border border-foreground/25 px-2 py-2 w-72 m-0"
-		>
-			{options.map((option, index) => (
-				<option key={index} value={option.value}>
-					{option.label}
-				</option>
-			))}
-		</select>
+		<>
+			{props.label && (
+				<label className="text-foreground" htmlFor={props.id}>
+					{props.label}
+				</label>
+			)}
+			<div className="relative pt-2 flex items-center">
+				<select
+					id={props.id}
+					value={value}
+					onChange={onChange}
+					className="bg-current text-foreground rounded border border-foreground/25 px-2 py-2 w-72 m-0"
+				>
+					{options?.map((option, index) => (
+						<option key={index} value={option.value}>
+							{option.label}
+						</option>
+					))}
+				</select>
+			</div>
+		</>
 	);
 };
 

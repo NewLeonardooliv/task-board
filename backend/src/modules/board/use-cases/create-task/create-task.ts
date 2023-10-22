@@ -18,6 +18,7 @@ export type CreateTaskRequest = {
   type: string;
   projectId: string;
   columnId?: string;
+  user: any
 };
 
 export class CreateTask {
@@ -40,11 +41,16 @@ export class CreateTask {
     type,
     projectId,
     columnId,
+    user,
   }: CreateTaskRequest) {
     const projectFound = await this.projectRepository.find(projectId);
 
     if (!projectFound) {
       throw new Error("Project not found");
+    }
+
+    if (!reporterId) {
+      reporterId = user.userId;
     }
 
     const reporterFound = await this.userRepository.find(reporterId);
@@ -84,6 +90,7 @@ export class CreateTask {
 
     return this.mapTaskToResponse(task);
   }
+
 
   private mapTaskToResponse(task: Task) {
     return {

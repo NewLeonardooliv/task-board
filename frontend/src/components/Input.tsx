@@ -21,6 +21,7 @@ type InputProps = {
 	prefixIcon?: {
 		iconName: IconName;
 	};
+	className?: string;
 	label?: string;
 }
 
@@ -33,13 +34,13 @@ const InputFowardedFunction: React.ForwardRefRenderFunction<any, React.PropsWith
 
 	return (
 		<>
-			{props.label && <label htmlFor={props.id}>{props.label}</label>}
+			{props.label && <label className="text-foreground" htmlFor={props.id}>{props.label}</label>}
 			<div className="relative pt-2 flex items-center">
 				<input
 					{...props}
 					ref={ref}
 					type={type}
-					className='bg-current text-foreground rounded border border-foreground/25 pl-2 py-2 w-72 m-0'
+					className={`bg-current text-foreground rounded border border-foreground/25 pl-2 py-2 w-72 m-0 ${props.className}`}
 				/>
 				{prefixIcon?.iconName && (
 					<span className='absolute text-foreground right-4 transition-colors' >

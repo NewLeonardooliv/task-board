@@ -1,3 +1,4 @@
+import CreateTaskForm from '@/components/Board/CreateTask';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import KanbanColumn from '@/components/Kanban/KanbanColumn';
@@ -41,7 +42,6 @@ export type ProjectProps = {
 }
 
 const Kanban: React.FC = () => {
-
 	const [isLoading, setIsLoading] = React.useState<boolean>(true);
 	const [draggedOverCol, setDraggedOverCol] = React.useState<string>('');
 
@@ -52,19 +52,7 @@ const Kanban: React.FC = () => {
 	const [filteredTasks, setFilteredTasks] = React.useState<TaskProps[]>([]);
 	const [searchTerm, setSearchTerm] = React.useState<string>('');
 
-	const [newTaskTitle, setNewTaskTitle] = React.useState<string>('');
-	const [newTaskDescription, setNewTaskDescription] = React.useState('');
 	const [isCreateTaskFormOpen, setIsCreateTaskFormOpen] = React.useState(false);
-
-	const [formData, setFormData] = React.useState({
-		title: '',
-		description: '',
-		difficulty: '',
-		priority: '',
-		toReproduce: '',
-		toSolve: '',
-		type: '',
-	});
 
 	const router = useRouter();
 	React.useEffect(() => {
@@ -119,108 +107,10 @@ const Kanban: React.FC = () => {
 		}
 	};
 
-	const handleCreateTask = () => {
-		const newTask: TaskProps = {
-			id: "",
-			title: "",
-			description: "",
-			assigneeId: "",
-			columnId: "",
-			createdAt: "",
-			difficulty: "",
-			priority: "HIGHEST",
-			projectId: "",
-			reporterId: "",
-			toReproduce: "",
-			toSolve: "",
-			type: "",
-			updatedAt: "",
-		};
-
-		tasks.push(newTask)
-
-		setNewTaskTitle('');
-		setNewTaskDescription('');
-		setIsCreateTaskFormOpen(false);
-	};
-
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		setFormData({ ...formData, [name]: value });
-	};
-
-	const handleSubmit = (e: FormEvent) => {
-		e.preventDefault();
-		onSubmit(formData);
-	};
-	const onClose = () => {
-
-	}
-
-	const onSubmit = (a: any) => {
-
-	}
-
 	return (
 		<div className='flex flex-col gap-4'>
-			<Modal title='Nova Tarefa' onClose={() => setIsCreateTaskFormOpen(false)} isOpen={isCreateTaskFormOpen}>
-				<div className="mb-4 p-4 rounded">
-					<Input
-						type="text"
-						name="title"
-						placeholder="Título da Tarefa"
-						value={formData.title}
-						onChange={handleChange}
-					/>
-					<Input
-						type="text"
-						name="description"
-						placeholder="Descrição da Tarefa"
-						value={formData.description}
-						onChange={handleChange}
-					/>
-					<Input
-						type="text"
-						name="description"
-						placeholder="Descrição da Tarefa"
-						value={formData.description}
-						onChange={handleChange}
-					/>
-					<Input
-						type="text"
-						name="description"
-						placeholder="Descrição da Tarefa"
-						value={formData.description}
-						onChange={handleChange}
-					/>
-					<Input
-						type="text"
-						name="description"
-						placeholder="Descrição da Tarefa"
-						value={formData.description}
-						onChange={handleChange}
-					/>
-					<Input
-						type="text"
-						name="description"
-						placeholder="Descrição da Tarefa"
-						value={formData.description}
-						onChange={handleChange}
-					/>
-					<Input
-						type="text"
-						name="description"
-						placeholder="Descrição da Tarefa"
-						value={formData.description}
-						onChange={handleChange}
-					/>
-					<div className="flex justify-between mt-6">
-						<Button type="default" className="btn-primary">Criar Tarefa</Button>
-						<Button type="default" className="btn-secondary" onClick={() => setIsCreateTaskFormOpen(false)}>
-							Cancelar
-						</Button>
-					</div>
-				</div>
+			<Modal title='Tarefas' description='Adicionar Tarefa' onClose={() => setIsCreateTaskFormOpen(false)} isOpen={isCreateTaskFormOpen}>
+				<CreateTaskForm />
 			</Modal>
 			<h1 className="text-3xl font-bold mb-4 text-foreground">Tarefas {poroject.name}</h1>
 			<div className='flex justify-between py-4 h-full'>

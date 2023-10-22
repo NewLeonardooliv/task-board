@@ -30,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
 }: React.PropsWithChildren<ButtonProps>) => {
 
     const cnames = classNames(
-        'rounded px-7',
+        'rounded px-7 py-2',
         {
             'bg-accent': color === 'accent',
             'border': type === 'default',
@@ -51,7 +51,7 @@ const Button: React.FC<ButtonProps> = ({
             onClick={onClick}
             type={htmlType}
             className={classNames(
-                'hover:opacity-90 active:opacity-80 print:hidden text-white font-bold',
+                'hover:opacity-90 hover:bg-foreground hover:text-background transition-all active:opacity-80 print:hidden text-white font-bold',
                 cnames
             )}
             disabled={disabled}
