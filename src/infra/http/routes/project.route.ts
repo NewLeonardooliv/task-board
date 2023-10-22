@@ -3,6 +3,7 @@ import { adapterRoute } from '@core/infra/adapters/ExpressRouteAdapter';
 import { createColumnController } from '@infra/factories/controllers/create-column-controller-factory ';
 import { createProjectController } from '@infra/factories/controllers/create-project-controller-factory';
 import { createTaskController } from '@infra/factories/controllers/create-task-controller-factory';
+import { getProjectController } from '@infra/factories/controllers/get-project-controller-factory';
 import { listAllProjectColumnsController } from '@infra/factories/controllers/list-all-project-columns-controller-factory ';
 import { listProjectTasksController } from '@infra/factories/controllers/list-project-tasks-controller-factory';
 import { listProjectsController } from '@infra/factories/controllers/list-projects-controller-factory ';
@@ -14,6 +15,7 @@ const project = Router();
 project.use(adapterMiddleware(accessTokenMiddleware));
 project.post('/', adapterRoute(createProjectController));
 project.get('/', adapterRoute(listProjectsController));
+project.get('/:projectId', adapterRoute(getProjectController));
 
 project.get('/:projectId/columns', adapterRoute(listAllProjectColumnsController));
 project.post('/:projectId/columns', adapterRoute(createColumnController));
