@@ -45,7 +45,7 @@ export class Task extends Entity<TaskProps>{
   }
 
   get columnId() {
-    return this.props.columnId;
+    return this.props.columnId.toString();
   }
 
   get assigneeId() {
@@ -78,6 +78,11 @@ export class Task extends Entity<TaskProps>{
 
   set title(title: string) {
     this.props.title = title;
+    this.touch;
+  }
+
+  set columnId(columnId: string) {
+    this.props.columnId = new UniqueEntityId(columnId);
     this.touch;
   }
 

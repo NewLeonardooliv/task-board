@@ -29,4 +29,24 @@ export class PrismaTaskRepository implements TaskRepository {
     return tasks.map((task) => TaskMapper.toDomain(task));
   }
 
+  async find(taskId: string): Promise<Task> {
+    const task = await prisma.task.findFirst({
+      where: {
+        id: taskId
+      }
+    });
+
+    return TaskMapper.toDomain(task);
+  }
+
+  async save(task: Task): Promise<void> {
+    const data = TaskMapper.toPersistence(task);
+
+    await prisma.task.update({
+      where: {
+        id: data.id,
+      },
+      data
+    });
+  }
 }
