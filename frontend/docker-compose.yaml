@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  nextjs:
+    container_name: board
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/app

@@ -1,0 +1,17 @@
+# Dependencies
+node_modules
+
+# Testing
+coverage
+
+.vscode
+data
+
+# Environment
+.env
+.env.local
+.env.*.local
+prisma/.env
+
+# Build
+dist
