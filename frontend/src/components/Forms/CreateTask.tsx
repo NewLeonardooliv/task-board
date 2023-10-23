@@ -4,15 +4,16 @@ import SelectInput from "../SelectInput";
 import Textarea from "../Textarea";
 import Button from "../Button";
 import fetchBoard from "@/service/fetch.board";
-import { TaskProps } from "@/pages/kanban";
+import { TaskProps } from "@/pages/projects/[idProject]/board";
 
 type CreateTaskProps = {
 	tasks: TaskProps[];
 	setTasks: any;
 	projectId: string | string[] | undefined;
+	setOpen: any;
 }
 
-const CreateTaskForm = ({ tasks, setTasks, projectId }: CreateTaskProps) => {
+const CreateTaskForm = ({ tasks, setTasks, projectId, setOpen }: CreateTaskProps) => {
 	const cleanForm = {
 		title: "aaaa",
 		description: "aaaaaa",
@@ -33,6 +34,8 @@ const CreateTaskForm = ({ tasks, setTasks, projectId }: CreateTaskProps) => {
 		setTasks([...tasks, task]);
 
 		setFormData(cleanForm);
+
+		setOpen(false);
 	};
 
 	return (

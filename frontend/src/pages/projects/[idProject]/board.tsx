@@ -1,4 +1,4 @@
-import CreateTaskForm from '@/components/Board/CreateTask';
+import CreateTaskForm from '@/components/Forms/CreateTask';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import KanbanColumn from '@/components/Kanban/KanbanColumn';
@@ -119,7 +119,7 @@ const Kanban: React.FC = () => {
 	return (
 		<div className='flex flex-col gap-4'>
 			<Modal title='Tarefas' description='Adicionar Tarefa' onClose={() => setIsCreateTaskFormOpen(false)} isOpen={isCreateTaskFormOpen}>
-				<CreateTaskForm tasks={tasks} setTasks={setTasks} projectId={router?.query?.idProject} />
+				<CreateTaskForm tasks={tasks} setOpen={setIsCreateTaskFormOpen} setTasks={setTasks} projectId={router?.query?.idProject} />
 			</Modal>
 			<h1 className="text-3xl font-bold mb-4 text-foreground">Tarefas {poroject?.name}</h1>
 			<div className='flex justify-between py-4 h-full'>
