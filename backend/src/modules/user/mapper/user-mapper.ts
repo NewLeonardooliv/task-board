@@ -22,7 +22,8 @@ export class UserMapper {
       profileId: raw.profile_id,
       password: new Password(raw.password),
       createdAt: raw.created_at,
-      updatedAt: raw.updated_at
+      updatedAt: raw.updated_at,
+      profilePic: raw.profile_pic
     }, new UniqueEntityId(raw.id))
   }
 }

@@ -12,7 +12,9 @@ export const adapterRoute = (controller: Controller) => {
               ...request
           };
 
-          const httpResponse = await controller.handle(requestData);
+          const file = request.file;
+
+          const httpResponse = await controller.handle(requestData, file);
 
           if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
               return response.status(httpResponse.statusCode).json(httpResponse.body);

@@ -6,13 +6,14 @@ import { fail } from "assert";
 export class RegisterUserController implements Controller {
   constructor(private readonly registerUser: RegisterUser) { }
 
-  async handle({ email, password, name, profileId }: RegisterUserRequest) {
+  async handle({ email, password, name, profileId }: RegisterUserRequest, file: any) {
     try {
       await this.registerUser.execute({
         name,
         email,
         password,
-        profileId
+        profileId,
+        profilePic: file.filename
       });
       return created();
 

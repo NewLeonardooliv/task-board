@@ -15,3 +15,6 @@ prisma/.env
 
 # Build
 dist
+
+tmp/*
+!tmp/.gitkeep

@@ -10,6 +10,7 @@ type UserProps = {
   password: Password;
   createdAt: Date;
   updatedAt?: Date;
+  profilePic?: string;
 }
 
 export class User extends Entity<UserProps> {
@@ -27,6 +28,10 @@ export class User extends Entity<UserProps> {
 
   get password(): Password {
     return this.props.password;
+  }
+
+  get profilePic(): string {
+    return this.profilePic;
   }
 
   get createdAt() {

@@ -3,10 +3,13 @@ import { authenticateUserController } from '@infra/factories/controllers/authent
 import { listUsersController } from '@infra/factories/controllers/list-users-controller-factory ';
 import { registerUserController } from '@infra/factories/controllers/register-user-controller-factory ';
 import { Router } from 'express';
+import { config } from "@config/upload";
+import multer from 'multer';
 
 const user = Router();
+const upload = multer(config);
 
-user.post('/', adapterRoute(registerUserController));
+user.post('/', upload.single('image'), adapterRoute(registerUserController));
 user.post('/signin', adapterRoute(authenticateUserController));
 user.get('/', adapterRoute(listUsersController));
 

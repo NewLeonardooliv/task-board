@@ -3,12 +3,14 @@ import { User } from "../../domain/user";
 import { Password } from "../../domain/value-objects/password";
 import { UserRepository } from "../../repository/user-repository";
 import { MailBody } from "@modules/user/domain/mail-body";
+import { container } from "tsyringe";
 
 export type RegisterUserRequest = {
   name: string;
   email: string;
   password?: string;
   profileId: string;
+  profilePic?: string;
 }
 
 export class RegisterUser {
