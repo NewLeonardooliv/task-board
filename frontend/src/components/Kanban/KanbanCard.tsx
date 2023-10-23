@@ -1,6 +1,6 @@
 import React from "react";
-import { TaskProps } from "@/pages/kanban";
 import { capitalizeFirstLetter, limitString } from "@/utils/app.util";
+import { TaskProps } from "@/pages/projects/[idProject]/board";
 
 interface KanbanCardProps {
 	project: TaskProps;
@@ -23,21 +23,43 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ project, onDragEnd }) => {
 		}
 	};
 
+	const getPriorityColor = (priority: 'HIGHEST' | 'MEDIUM' | 'LOW' | 'LOWEST') => {
+		switch (priority) {
+			case 'HIGHEST':
+				return 'red';
+			case 'MEDIUM':
+				return 'amber-500';
+			case 'LOW':
+				return "blue-600";
+			case 'LOWEST':
+				return "blue-300";
+			default:
+				return null;
+		}
+	};
+
 	return (
 		<div
-			className="bg-background rounded-xl shadow-md p-4 transition-all hover:opacity-90 cursor-pointer"
+			className={`bg-background rounded-xl shadow-md p-4 transition-all hover:opacity-90 cursor-pointer border-l-4 border-${getPriorityColor(project.priority)}`}
 			draggable={true}
 			onDragEnd={(e) => onDragEnd(e, project)}
 		>
-			<h3 className="text-lg text-white font-semibold">{limitString(project.title, 45)}</h3>
-			<p className="text-sm text-gray-200 mt-2">{limitString(project.description, 100)}</p>
-			<div className="flex items-center mt-4">
+			<h3 className="text-lg text-white font-semibold">
+				{limitString(project.title, 45)}
+			</h3>
+			<p className="text-sm text-gray-200 mt-2">
+				{limitString(project.description, 100)}
+			</p>
+			{/* <div className="flex items-center mt-4">
 				<div className="w-6 h-6 bg-current rounded-full flex items-center justify-center">
 					{getPriorityIcon(project.priority)}
 				</div>
-				<div className="ml-2 text-gray-50 text-sm">{capitalizeFirstLetter(project.priority)}</div>
-			</div>
+				<div className="ml-2 text-gray-50 text-sm">
+					{capitalizeFirstLetter(project.priority)}
+				</div>
+			</div> */}
 		</div>
+
 	);
 };
 

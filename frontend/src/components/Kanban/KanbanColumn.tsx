@@ -1,7 +1,6 @@
 import React from "react";
 import KanbanCard from "./KanbanCard";
-
-import { TaskProps } from "@/pages/kanban";
+import { TaskProps } from "@/pages/projects/[idProject]/board";
 
 interface KanbanColumnProps {
 	name: string;

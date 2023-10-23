@@ -1,6 +1,6 @@
 # Task Board
 
-![board](https://i.imgur.com/SkwHs1A.png)
+![board](https://i.imgur.com/uXXq83c.png)
 
 ## 🚀 Projeto
 
