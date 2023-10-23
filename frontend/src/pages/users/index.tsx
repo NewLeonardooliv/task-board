@@ -10,6 +10,25 @@ const Users: React.FC = () => {
 	const [users, setUsers] = React.useState<any[]>([]);
 	const [isCreateUserFormOpen, setIsCreateUserFormOpen] = React.useState(false);
 
+	const [filteredUsers, setFilteredUsers] = React.useState<any[]>([]);
+	const [searchTerm, setSearchTerm] = React.useState<string>('');
+
+	React.useEffect(() => {
+		const getFilteredData = () => {
+			let filteredData = users;
+
+			if (searchTerm) {
+				filteredData = users.filter((item: { name: string; }) =>
+					item.name.toLowerCase().includes(searchTerm.toLowerCase())
+				);
+			}
+
+			setFilteredUsers(filteredData);
+		}
+
+		getFilteredData();
+	}, [users, searchTerm]);
+
 	React.useEffect(() => {
 		const project = async () => {
 			const users = await fetchBoard('user');
@@ -20,7 +39,6 @@ const Users: React.FC = () => {
 		project();
 	}, []);
 
-	const [searchTerm, setSearchTerm] = React.useState<string>('');
 	return (
 		<>
 			<Modal title='Usuários' description='Adicionar Usuário' onClose={() => setIsCreateUserFormOpen(false)} isOpen={isCreateUserFormOpen}>
@@ -46,7 +64,7 @@ const Users: React.FC = () => {
 					</Button>
 				</div>
 				<div className='flex flex-wrap justify-start w-full'>
-					{users.map((user, index) => (
+					{filteredUsers.map((user, index) => (
 						<div key={index} className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4'>
 							<UserCard key={index} name={user.name} photoUrl={user.photoUrl} />
 						</div>

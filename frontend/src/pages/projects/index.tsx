@@ -10,7 +10,25 @@ const Projects: React.FC = () => {
 	const [projects, setProjects] = React.useState<any[]>([]);
 	const [searchTerm, setSearchTerm] = React.useState<string>('');
 
+	const [filteredProjects, setFilteredProjects] = React.useState<any[]>([]);
+
 	const [isCreateProjectFormOpen, setIsCreateProjectFormOpen] = React.useState(false);
+
+	React.useEffect(() => {
+		const getFilteredData = () => {
+			let filteredData = projects;
+
+			if (searchTerm) {
+				filteredData = projects.filter((item: { name: string; }) =>
+					item.name.toLowerCase().includes(searchTerm.toLowerCase())
+				);
+			}
+
+			setFilteredProjects(filteredData);
+		}
+
+		getFilteredData();
+	}, [projects, searchTerm]);
 
 	React.useEffect(() => {
 		const project = async () => {
@@ -46,7 +64,7 @@ const Projects: React.FC = () => {
 					</Button>
 				</div>
 				<div className='flex gap-10 flex-wrap'>
-					{projects.map((project, index) => (
+					{filteredProjects.map((project, index) => (
 						<ProjectCard key={index} project={project} />
 					))}
 				</div>
