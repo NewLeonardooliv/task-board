@@ -1,7 +1,6 @@
 import { Controller } from "@core/infra/Controller";
-import { HttpResponse, created } from "@core/infra/HttpResponse";
+import { HttpResponse, created, fail } from "@core/infra/HttpResponse";
 import { ChangeTaskColumn, ChangeTaskColumnRequest } from "./change-task-column";
-import { fail } from "assert";
 
 export class ChangeTaskColumnController implements Controller {
   constructor(private changeTaskColumn: ChangeTaskColumn) { }
