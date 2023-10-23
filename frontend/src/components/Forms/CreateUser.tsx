@@ -1,22 +1,19 @@
 import React, { useState } from "react";
 import Input from "../Input";
-import Textarea from "../Textarea";
 import Button from "../Button";
 import fetchBoard from "@/service/fetch.board";
-import { TaskProps } from "@/pages/projects/[idProject]/board";
 
 type CreateProjectFormProps = {
-	projects: TaskProps[];
-	setProjects: any;
+	users: any;
+	setUsers: any;
 	setOpen: any;
 }
 
-const CreateProjectForm = ({ projects, setProjects, setOpen }: CreateProjectFormProps) => {
+const CreateUserForm = ({ users, setUsers, setOpen }: CreateProjectFormProps) => {
 	const cleanForm = {
-		name: "Projecto Criado",
-		key: "PROJN",
-		leaderId: "b2ec3604-b420-4aaa-a6c0-270182867447",
-		coverImg: "asds"
+		email: "leonardo@email.com",
+		name: "Leonardo Oliveira",
+		profileId: "52142986-2755-41e1-97a1-0eadef85fc8c"
 	};
 
 	const [formData, setFormData] = useState(cleanForm);
@@ -24,8 +21,8 @@ const CreateProjectForm = ({ projects, setProjects, setOpen }: CreateProjectForm
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
-		const task = await fetchBoard(`project`, 'POST', formData);
-		setProjects([...projects, formData]);
+		await fetchBoard(`user`, 'POST', formData);
+		setUsers([...users, formData]);
 
 		setFormData(cleanForm);
 		setOpen(false);
@@ -36,30 +33,30 @@ const CreateProjectForm = ({ projects, setProjects, setOpen }: CreateProjectForm
 			<form onSubmit={handleSubmit}>
 				<div className="mb-4">
 					<Input
+						label="Nome"
 						className="w-full"
-						label="Título"
-						placeholder="Título..."
-						type="text"
+						placeholder="Perfil do usuário..."
 						value={formData.name}
 						onChange={(e) => setFormData({ ...formData, name: e.target.value })}
 					/>
 				</div>
 				<div className="mb-4">
 					<Input
-						label="Chave"
 						className="w-full"
-						placeholder="Chave do projeto..."
-						value={formData.key}
-						onChange={(e) => setFormData({ ...formData, key: e.target.value })}
+						label="Nome"
+						placeholder="Nome..."
+						type="text"
+						value={formData.email}
+						onChange={(e) => setFormData({ ...formData, email: e.target.value })}
 					/>
 				</div>
 				<div className="mb-4">
 					<Input
-						label="Lider do projeto"
+						label="Perfil"
 						className="w-full"
-						placeholder="Lider do projeto..."
-						value={formData.leaderId}
-						onChange={(e) => setFormData({ ...formData, leaderId: e.target.value })}
+						placeholder="Perfil do usuário..."
+						value={formData.profileId}
+						onChange={(e) => setFormData({ ...formData, profileId: e.target.value })}
 					/>
 				</div>
 				<div className="flex justify-end">
@@ -75,4 +72,4 @@ const CreateProjectForm = ({ projects, setProjects, setOpen }: CreateProjectForm
 	);
 };
 
-export default CreateProjectForm;
+export default CreateUserForm;

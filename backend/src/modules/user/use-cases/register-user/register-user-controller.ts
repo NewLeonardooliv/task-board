@@ -13,7 +13,7 @@ export class RegisterUserController implements Controller {
         email,
         password,
         profileId,
-        profilePic: file.filename
+        profilePic: file?.filename
       });
       return created();
 
