@@ -22,6 +22,15 @@ export type TaskProps = {
 	toSolve: string;
 	type: string;
 	updatedAt: string;
+	assignee: UserProps,
+	reporter: UserProps,
+}
+
+type UserProps = {
+	id: string;
+	name: string;
+	profileId: string;
+	email: string;
 }
 
 export type ColumnProps = {

@@ -50,14 +50,13 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ project, onDragEnd }) => {
 			<p className="text-sm text-gray-200 mt-2">
 				{limitString(project.description, 100)}
 			</p>
-			{/* <div className="flex items-center mt-4">
+			<div className="flex items-center mt-4">
 				<div className="w-6 h-6 bg-current rounded-full flex items-center justify-center">
-					{getPriorityIcon(project.priority)}
 				</div>
 				<div className="ml-2 text-gray-50 text-sm">
-					{capitalizeFirstLetter(project.priority)}
+					{project.assignee.name}
 				</div>
-			</div> */}
+			</div>
 		</div>
 
 	);
