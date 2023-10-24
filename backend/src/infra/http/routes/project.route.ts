@@ -1,3 +1,5 @@
+import multer from 'multer';
+
 import { adapterMiddleware } from '@core/infra/adapters/ExpressMiddlewareAdapter';
 import { adapterRoute } from '@core/infra/adapters/ExpressRouteAdapter';
 import { changeTaskColumnController } from '@infra/factories/controllers/change-task-column-controller-factory';
@@ -10,11 +12,13 @@ import { listProjectTasksController } from '@infra/factories/controllers/list-pr
 import { listProjectsController } from '@infra/factories/controllers/list-projects-controller-factory ';
 import { accessTokenMiddleware } from '@infra/factories/middlewares/AccessTokenMiddlewareFactory';
 import { Router } from 'express';
+import { config } from "@config/upload";
 
 const project = Router();
+const upload = multer(config);
 
 project.use(adapterMiddleware(accessTokenMiddleware));
-project.post('/', adapterRoute(createProjectController));
+project.post('/', upload.single('image'), adapterRoute(createProjectController));
 project.get('/', adapterRoute(listProjectsController));
 project.get('/:projectId', adapterRoute(getProjectController));
 

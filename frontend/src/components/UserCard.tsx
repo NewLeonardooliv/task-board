@@ -15,7 +15,7 @@ const UserCard = (user: UserCardProps) => {
 				height={100}
 				src={UPLOAD_URL + user.profilePic}
 				alt={user.name}
-				className="w-22 h-22 rounded-lg mx-auto"
+				className="w-22 h-22 rounded-lg"
 			/>
 			<h3 className="text-lg text-foreground font-semibold text-center mt-2">{user.name}</h3>
 		</div>

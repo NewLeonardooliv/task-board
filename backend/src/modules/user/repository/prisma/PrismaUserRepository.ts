@@ -14,14 +14,14 @@ export class PrismaUserRepository implements UserRepository {
     });
   }
 
-  async findByEmail(email: string): Promise<User | boolean> {
+  async findByEmail(email: string): Promise<User> {
     const user = await prisma.user.findFirst({
       where: {
         email: email
       }
     });
 
-    if (!user) return false;
+    if (!user) return undefined;
 
     return User.create({
       email: user?.email,

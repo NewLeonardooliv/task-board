@@ -15,8 +15,7 @@ const CreateProjectForm = ({ projects, setProjects, setOpen }: CreateProjectForm
 	const cleanForm = {
 		name: "Projecto Criado",
 		key: "PROJN",
-		leaderId: "b2ec3604-b420-4aaa-a6c0-270182867447",
-		coverImg: "asds",
+		leaderId: "81323fe3-71db-43b9-8f6c-9bf51b3bc10f",
 		image: {}
 	};
 
@@ -25,8 +24,8 @@ const CreateProjectForm = ({ projects, setProjects, setOpen }: CreateProjectForm
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
-		const task = await fetchBoard(`project`, 'POST', formData);
-		setProjects([...projects, formData]);
+		const task = await fetchBoard(`project`, 'POST', formData, 'multipart/form-data');
+		setProjects([...projects, task]);
 
 		setFormData(cleanForm);
 		setOpen(false);
