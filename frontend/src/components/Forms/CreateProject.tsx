@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Input from "../Input";
-import Textarea from "../Textarea";
 import Button from "../Button";
 import fetchBoard from "@/service/fetch.board";
 import { TaskProps } from "@/pages/projects/[idProject]/board";
+import ImageInput from "../FileUpload";
 
 type CreateProjectFormProps = {
 	projects: TaskProps[];
@@ -16,7 +16,8 @@ const CreateProjectForm = ({ projects, setProjects, setOpen }: CreateProjectForm
 		name: "Projecto Criado",
 		key: "PROJN",
 		leaderId: "b2ec3604-b420-4aaa-a6c0-270182867447",
-		coverImg: "asds"
+		coverImg: "asds",
+		image: {}
 	};
 
 	const [formData, setFormData] = useState(cleanForm);
@@ -61,6 +62,9 @@ const CreateProjectForm = ({ projects, setProjects, setOpen }: CreateProjectForm
 						value={formData.leaderId}
 						onChange={(e) => setFormData({ ...formData, leaderId: e.target.value })}
 					/>
+				</div>
+				<div className="mb-4">
+					<ImageInput label="Adicionar Capa" setFile={(e) => setFormData({ ...formData, image: e.file })} />
 				</div>
 				<div className="flex justify-end">
 					<Button

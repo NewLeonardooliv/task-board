@@ -62,7 +62,7 @@ const CreateUserForm = ({ users, setUsers, setOpen }: CreateProjectFormProps) =>
 					/>
 				</div>
 				<div className="mb-4">
-					<ImageInput setFile={(e) => setFormData({ ...formData, image: e.file })} />
+					<ImageInput label="Adicionar Perfil de Usuário" setFile={(e) => setFormData({ ...formData, image: e.file })} />
 				</div>
 				<div className="flex justify-end">
 					<Button

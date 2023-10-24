@@ -9,9 +9,11 @@ type FileProps = {
 type ImageUploadProps = {
   setFile: ({ file, fileName }: FileProps) => void;
   accept?: string;
+  label?: string;
 }
 
 const ImageInput: React.ForwardRefRenderFunction<any, React.PropsWithChildren<ImageUploadProps>> = ({
+  label = 'Adicionar arquivo',
   accept = '.enc,.jpeg,.jpg,.png',
   ...props
 }) => {
@@ -58,7 +60,7 @@ const ImageInput: React.ForwardRefRenderFunction<any, React.PropsWithChildren<Im
           </div>
         ) : (
           <>
-            <p className="text-orange">Adicionar arquivo</p>
+            <p className="text-orange">{label}</p>
             <p className="text-sm text-foreground">Tamanho máximo de 20MB</p>
           </>
         )}
