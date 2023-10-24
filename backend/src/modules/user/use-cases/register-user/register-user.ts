@@ -23,7 +23,8 @@ export class RegisterUser {
     name,
     password,
     email,
-    profileId
+    profileId,
+    profilePic
   }: RegisterUserRequest): Promise<void> {
     const userAlreadyExists = await this.usersRepository.findByEmail(email);
 
@@ -40,6 +41,7 @@ export class RegisterUser {
       email,
       password: await Password.create(password),
       profileId,
+      profilePic
     });
 
     await this.usersRepository.create(user);

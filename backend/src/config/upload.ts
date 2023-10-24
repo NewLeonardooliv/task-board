@@ -20,7 +20,7 @@ const config = {
 		},
 	}),
 	limits: {
-		fileSize: 2 * 1024 * 1024,
+		fileSize: 4 * 1024 * 1024,
 	},
 	fileFilter: (request, file, callback) => {
 		const allowedMimes = ['image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'];

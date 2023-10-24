@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt';
 import { InvalidPasswordError } from "./errors/InvalidPasswordError";
-import { User } from '../user';
 
 export class Password {
   constructor(public value: string, private readonly hashed?: boolean) {
@@ -13,7 +12,10 @@ export class Password {
     return true;
   }
 
-  static async create(password: string) {
+  static async create(
+    password: string,
+    hashed: boolean = false
+  ) {
     if (!this.isValid(password)) {
       throw new InvalidPasswordError();
     }

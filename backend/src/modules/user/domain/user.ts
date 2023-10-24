@@ -31,7 +31,7 @@ export class User extends Entity<UserProps> {
   }
 
   get profilePic(): string {
-    return this.profilePic;
+    return this.props.profilePic;
   }
 
   get createdAt() {

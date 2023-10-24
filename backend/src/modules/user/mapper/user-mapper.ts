@@ -7,11 +7,12 @@ import { Password } from "../domain/value-objects/password";
 export class UserMapper {
   static async toPersistence(user: User) {
     return {
-      id: user.id,
+      id: user.id.toString(),
       name: user.name,
       email: user.email,
-      profileId: user.profileId,
+      profile_id: user.profileId,
       password: await user.password.getHashedValue(),
+      profile_pic: user.profilePic
     }
   }
 

@@ -8,14 +8,9 @@ import { UniqueEntityId } from "@core/entities/unique-entity-id";
 export class PrismaUserRepository implements UserRepository {
   async create(user: User): Promise<void> {
     const data = await UserMapper.toPersistence(user);
+
     await prisma.user.create({
-      data: {
-        id: data.id.toString(),
-        name: data.name,
-        password: data.password,
-        profile_id: data.profileId,
-        email: data.email
-      }
+      data
     });
   }
 
@@ -59,7 +54,7 @@ export class PrismaUserRepository implements UserRepository {
         created_at: 'asc',
       }
     });
-  
+
     return users.map((user) => UserMapper.toDomain(user));
   }
 }
