@@ -25,7 +25,6 @@ const ImageInput: React.ForwardRefRenderFunction<any, React.PropsWithChildren<Im
 
       props.setFile({ file, fileName });
 
-      console.log("Arquivo selecionado:", file.name);
       setSelectedFile(file.name);
     }
   };
