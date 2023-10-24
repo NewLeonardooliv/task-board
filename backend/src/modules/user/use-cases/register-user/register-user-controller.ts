@@ -8,14 +8,21 @@ export class RegisterUserController implements Controller {
 
   async handle({ email, password, name, profileId }: RegisterUserRequest, file: any) {
     try {
-      await this.registerUser.execute({
+      const user = await this.registerUser.execute({
         name,
         email,
         password,
         profileId,
         profilePic: file?.filename
       });
-      return created();
+      return created({
+        id: user.id.toString(),
+        name: user.name,
+        email: user.email,
+        profileId: user.profileId,
+        profilePic: user.profilePic,
+        createdAt: user.createdAt
+      });
 
     } catch (error) {
       return fail(error);

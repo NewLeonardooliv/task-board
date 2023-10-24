@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Input from "../Input";
 import Button from "../Button";
 import fetchBoard from "@/service/fetch.board";
+import ImageInput from "../FileUpload";
 
 type CreateProjectFormProps = {
 	users: any;
@@ -13,7 +14,8 @@ const CreateUserForm = ({ users, setUsers, setOpen }: CreateProjectFormProps) =>
 	const cleanForm = {
 		email: "leonardo@email.com",
 		name: "Leonardo Oliveira",
-		profileId: "52142986-2755-41e1-97a1-0eadef85fc8c"
+		profileId: "52142986-2755-41e1-97a1-0eadef85fc8c",
+		image: {},
 	};
 
 	const [formData, setFormData] = useState(cleanForm);
@@ -21,8 +23,8 @@ const CreateUserForm = ({ users, setUsers, setOpen }: CreateProjectFormProps) =>
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
-		await fetchBoard(`user`, 'POST', formData);
-		setUsers([...users, formData]);
+		const user = await fetchBoard(`user`, 'POST', formData, 'multipart/form-data');
+		setUsers([...users, user]);
 
 		setFormData(cleanForm);
 		setOpen(false);
@@ -58,6 +60,9 @@ const CreateUserForm = ({ users, setUsers, setOpen }: CreateProjectFormProps) =>
 						value={formData.profileId}
 						onChange={(e) => setFormData({ ...formData, profileId: e.target.value })}
 					/>
+				</div>
+				<div className="mb-4">
+					<ImageInput setFile={(e) => setFormData({ ...formData, image: e.file })} />
 				</div>
 				<div className="flex justify-end">
 					<Button

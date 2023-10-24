@@ -25,7 +25,7 @@ export class RegisterUser {
     email,
     profileId,
     profilePic
-  }: RegisterUserRequest): Promise<void> {
+  }: RegisterUserRequest): Promise<User> {
     const userAlreadyExists = await this.usersRepository.findByEmail(email);
 
     if (userAlreadyExists) {
@@ -55,5 +55,7 @@ export class RegisterUser {
       subject: 'Board',
       body: MailBody.getHtml(),
     });
+
+    return user;
   }
 }
