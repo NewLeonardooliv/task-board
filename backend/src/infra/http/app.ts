@@ -7,6 +7,7 @@ require('dotenv/config');
 
 const app = express();
 
+app.use('/uploads', express.static('tmp'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());

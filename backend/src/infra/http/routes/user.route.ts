@@ -5,6 +5,7 @@ import { registerUserController } from '@infra/factories/controllers/register-us
 import { Router } from 'express';
 import { config } from "@config/upload";
 import multer from 'multer';
+import express from 'express';
 
 const user = Router();
 const upload = multer(config);
