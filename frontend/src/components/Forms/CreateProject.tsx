@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Input from "../Input";
 import Button from "../Button";
 import fetchBoard from "@/service/fetch.board";
-import { TaskProps } from "@/pages/projects/[idProject]/board";
 import ImageInput from "../FileUpload";
+import SelectInput from "../SelectInput";
+
+import { TaskProps } from "@/pages/projects/[idProject]/board";
 
 type CreateProjectFormProps = {
 	projects: TaskProps[];
@@ -19,7 +21,18 @@ const CreateProjectForm = ({ projects, setProjects, setOpen }: CreateProjectForm
 		image: {}
 	};
 
+	const [users, setUsers] = React.useState<any[]>([]);
 	const [formData, setFormData] = useState(cleanForm);
+
+	React.useEffect(() => {
+		const getUsers = async () => {
+			const users = await fetchBoard('user');
+
+			console.log(users);
+			setUsers(users);
+		}
+		getUsers();
+	})
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -54,12 +67,17 @@ const CreateProjectForm = ({ projects, setProjects, setOpen }: CreateProjectForm
 					/>
 				</div>
 				<div className="mb-4">
-					<Input
-						label="Lider do projeto"
+					<SelectInput
 						className="w-full"
-						placeholder="Lider do projeto..."
+						label="Lider do projeto"
 						value={formData.leaderId}
 						onChange={(e) => setFormData({ ...formData, leaderId: e.target.value })}
+						options={
+							users?.map((user) => ({
+								label: user.name,
+								value: user.id,
+							}))
+						}
 					/>
 				</div>
 				<div className="mb-4">

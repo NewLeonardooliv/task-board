@@ -11,6 +11,7 @@ export type SelectInputProps = {
 	options: Option[];
 	label?: string;
 	onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+	className?: string;
 }
 
 const SelectInput: React.FC<SelectInputProps> = ({ value, options, onChange, ...props }) => {
@@ -26,7 +27,7 @@ const SelectInput: React.FC<SelectInputProps> = ({ value, options, onChange, ...
 					id={props.id}
 					value={value}
 					onChange={onChange}
-					className="bg-current text-foreground rounded border border-foreground/25 px-2 py-2 w-72 m-0"
+					className={`bg-current text-foreground rounded border border-foreground/25 p-2 w-72 m-0 ${props.className}`}
 				>
 					{options?.map((option, index) => (
 						<option key={index} value={option.value}>
