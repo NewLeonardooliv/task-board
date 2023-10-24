@@ -25,7 +25,7 @@ const SelectInput: React.FC<SelectInputProps> = ({ value, options, onChange, ...
 			<div className="relative pt-2 flex items-center">
 				<select
 					id={props.id}
-					value={value}
+					value={options[0]?.value ?? 0}
 					onChange={onChange}
 					className={`bg-current text-foreground rounded border border-foreground/25 p-2 w-72 m-0 ${props.className}`}
 				>

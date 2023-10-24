@@ -12,7 +12,7 @@ export class AuthenticateUser {
   async execute({ email, password }: AuthenticateUserRequest) {
     const user = await this.userRepository.findByEmail(email);
 
-    if (typeof user === 'boolean') {
+    if (!user) {
       throw new Error('Invalid e-mail/password combination.');
     }
     

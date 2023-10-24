@@ -40,6 +40,7 @@ export class ListProjectTasks {
         name: assignee.name,
         profileId: assignee.profileId,
         email: assignee.email,
+        profilePic: assignee.profilePic
       };
 
       const reporterData = {
@@ -47,6 +48,7 @@ export class ListProjectTasks {
         name: reporter.name,
         profileId: reporter.profileId,
         email: reporter.email,
+        profilePic: reporter.profilePic
       };
 
       return {

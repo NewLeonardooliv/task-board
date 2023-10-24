@@ -18,7 +18,7 @@ export class CreateTaskController implements Controller {
     columnId,
     user
    }: CreateTaskRequest): Promise<HttpResponse> {
-    const columns = await this.createTaskUseCase.execute({
+    const task = await this.createTaskUseCase.execute({
       title,
       description,
       toSolve,
@@ -33,6 +33,6 @@ export class CreateTaskController implements Controller {
       user
     });
 
-    return ok(columns);
+    return ok(task);
   }
 }

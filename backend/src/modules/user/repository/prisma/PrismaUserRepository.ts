@@ -23,12 +23,7 @@ export class PrismaUserRepository implements UserRepository {
 
     if (!user) return undefined;
 
-    return User.create({
-      email: user?.email,
-      name: user?.name,
-      profileId: user?.profile_id,
-      password: await Password.create(user?.password),
-    }, new UniqueEntityId(user.id));
+    return UserMapper.toDomain(user);
   }
 
   async find(id: string): Promise<User> {
@@ -40,12 +35,7 @@ export class PrismaUserRepository implements UserRepository {
 
     if (!user) return undefined;
 
-    return User.create({
-      email: user?.email,
-      name: user?.name,
-      profileId: user?.profile_id,
-      password: await Password.create(user?.password),
-    }, new UniqueEntityId(user.id));
+    return UserMapper.toDomain(user);
   }
 
   async list(): Promise<User[]> {

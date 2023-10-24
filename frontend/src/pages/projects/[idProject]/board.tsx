@@ -31,6 +31,7 @@ type UserProps = {
 	name: string;
 	profileId: string;
 	email: string;
+	profilePic: string;
 }
 
 export type ColumnProps = {

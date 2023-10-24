@@ -20,12 +20,22 @@ const CreateTaskForm = ({ tasks, setTasks, projectId, setOpen }: CreateTaskProps
 		toSolve: "aaaaaa",
 		toReproduce: "aaaaaaa",
 		priority: "HIGHEST",
-		assigneeId: "5eb7dd04-226c-4294-bdb4-2124f080e09d",
+		assigneeId: "",
 		difficulty: "Hard",
 		type: "Hard",
 	};
 
 	const [formData, setFormData] = useState(cleanForm);
+
+	const [users, setUsers] = React.useState<any[]>([]);
+	React.useEffect(() => {
+		const getUsers = async () => {
+			const users = await fetchBoard('user');
+
+			setUsers(users);
+		}
+		getUsers();
+	}, []);
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -94,12 +104,16 @@ const CreateTaskForm = ({ tasks, setTasks, projectId, setOpen }: CreateTaskProps
 				<div className="mb-4">
 				</div>
 				<div className="mb-4">
-					<Input
+					<SelectInput
 						label="Responsável"
-						placeholder="Responsável"
-						type="text"
 						value={formData.assigneeId}
 						onChange={(e) => setFormData({ ...formData, assigneeId: e.target.value })}
+						options={
+							users?.map((user) => ({
+								label: user.name,
+								value: user.id,
+							}))
+						}
 					/>
 				</div>
 				<div className="mb-4">

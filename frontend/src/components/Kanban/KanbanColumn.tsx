@@ -24,7 +24,7 @@ const KanbanColumn: React.FC<KanbanColumnProps> = ({ name, stage, color, tasks, 
 			}}
 		>
 			<div className="flex justify-between items-center">
-				<div className={` bg-[${color}] bg-opacity-50 py-1 px-2 rounded-md`}>
+				<div className={` bg-opacity-50 py-1 px-2 rounded-md`} style={{backgroundColor: `${color}AA` }}>
 					<h2 className="text-sm font-semibold text-foreground">{name}</h2>
 				</div>
 				<p className="text-lg font-semibold text-foreground">{tasks.length}</p>

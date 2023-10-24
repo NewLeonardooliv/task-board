@@ -63,11 +63,9 @@ const Users: React.FC = () => {
 						Adicionar Usuário
 					</Button>
 				</div>
-				<div className='flex flex-wrap justify-start w-full'>
+				<div className="flex gap-10 flex-wrap">
 					{filteredUsers.map((user, index) => (
-						<div key={index} className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4'>
-							<UserCard key={index} name={user.name} profilePic={user.profilePic} />
-						</div>
+						<UserCard key={index} name={user.name} profilePic={user.profilePic} />
 					))}
 				</div>
 			</div>

@@ -21,18 +21,17 @@ const CreateProjectForm = ({ projects, setProjects, setOpen }: CreateProjectForm
 		image: {}
 	};
 
-	const [users, setUsers] = React.useState<any[]>([]);
 	const [formData, setFormData] = useState(cleanForm);
-
+	
+	const [users, setUsers] = React.useState<any[]>([]);
 	React.useEffect(() => {
 		const getUsers = async () => {
 			const users = await fetchBoard('user');
 
-			console.log(users);
 			setUsers(users);
 		}
 		getUsers();
-	})
+	}, []);
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
