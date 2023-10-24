@@ -8,9 +8,11 @@ type FileProps = {
 
 type ImageUploadProps = {
   setFile: ({ file, fileName }: FileProps) => void;
+  accept?: string;
 }
 
 const ImageInput: React.ForwardRefRenderFunction<any, React.PropsWithChildren<ImageUploadProps>> = ({
+  accept = '.enc,.jpeg,.jpg,.png',
   ...props
 }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -64,7 +66,7 @@ const ImageInput: React.ForwardRefRenderFunction<any, React.PropsWithChildren<Im
       </div>
       <input
         type="file"
-        accept=".pdf,.doc,.docx, .png"
+        accept={accept}
         style={{ display: "none" }}
         ref={fileInputRef}
         onChange={handleFileUpload}
