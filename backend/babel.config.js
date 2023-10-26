@@ -20,7 +20,8 @@ module.exports = {
           '@helpers': './src/helpers',
           '@infra': './src/infra',
           '@modules': './src/modules',
-          '@shared': './src/shared'
+          '@shared': './src/shared',
+          '@constants': './src/constants',
         }
       }
     ]
