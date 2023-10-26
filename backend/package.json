@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/infra/http/server.ts",
-    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored"
+    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
+    "start": "node dist/infra/http/server.js"
   },
   "prisma": {
     "seed": "ts-node-dev src/infra/prisma/seed.ts"
