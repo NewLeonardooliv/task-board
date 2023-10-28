@@ -7,6 +7,7 @@ import { registerUserController } from "@infra/factories/controllers/register-us
 import { Router } from "express";
 import { config } from "@config/upload";
 import { firstAccessController } from "@infra/factories/controllers/first-access-controller-factory";
+import { listProfilesController } from "@infra/factories/controllers/list-profiles-controller-factory";
 
 const user = Router();
 const upload = multer(config);
@@ -15,5 +16,6 @@ user.post("/", upload.single("image"), adapterRoute(registerUserController));
 user.post("/signin", adapterRoute(authenticateUserController));
 user.get("/", adapterRoute(listUsersController));
 user.post("/firstAccess", adapterRoute(firstAccessController));
+user.get('/profiles', adapterRoute(listProfilesController));
 
 export { user };

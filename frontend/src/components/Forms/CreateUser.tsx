@@ -3,6 +3,7 @@ import Input from "../Input";
 import Button from "../Button";
 import fetchBoard from "@/service/fetch.board";
 import ImageInput from "../FileUpload";
+import SelectInput from "../SelectInput";
 
 type CreateProjectFormProps = {
 	users: any;
@@ -14,11 +15,22 @@ const CreateUserForm = ({ users, setUsers, setOpen }: CreateProjectFormProps) =>
 	const cleanForm = {
 		email: "leonardo@email.com",
 		name: "Leonardo Oliveira",
-		profileId: "52142986-2755-41e1-97a1-0eadef85fc8c",
+		profileId: "",
 		image: {},
 	};
 
 	const [formData, setFormData] = useState(cleanForm);
+
+	const [profiles, setProfiles] = React.useState<any[]>([]);
+	React.useEffect(() => {
+		const getUsers = async () => {
+			const profiles = await fetchBoard('user/profiles');
+
+			setProfiles(profiles);
+		}
+
+		getUsers();
+	}, []);
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -53,12 +65,17 @@ const CreateUserForm = ({ users, setUsers, setOpen }: CreateProjectFormProps) =>
 					/>
 				</div>
 				<div className="mb-4">
-					<Input
-						label="Perfil"
-						className="w-full"
-						placeholder="Perfil do usuário..."
+					<SelectInput
+						label="Responsável"
 						value={formData.profileId}
+						className="w-full"
 						onChange={(e) => setFormData({ ...formData, profileId: e.target.value })}
+						options={
+							profiles?.map((profile) => ({
+								value: profile.id,
+								label: profile.name,
+							}))
+						}
 					/>
 				</div>
 				<div className="mb-4">
