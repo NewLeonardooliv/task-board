@@ -3,6 +3,7 @@ import { UserRepository } from "@modules/user/repository/user-repository";
 import { firstAccessAuth } from "@config/firs-access-token";
 import { JWT } from "@modules/user/domain/value-objects/jwt";
 import { Password } from "@modules/user/domain/value-objects/password";
+import { auth } from "@config/auth";
 
 export type FirstAccessRequest = {
   token: string;
@@ -21,7 +22,7 @@ export class FirstAccess {
       throw new Error("User not found");
     }
 
-    const { token: tokenToSingIn } = await JWT.signUser(user, firstAccessAuth);
+    const { token: tokenToSingIn } = await JWT.signUser(user, auth);
 
     user.password = await Password.create(password);
 
