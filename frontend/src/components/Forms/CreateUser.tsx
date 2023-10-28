@@ -45,38 +45,44 @@ const CreateUserForm = ({ users, setUsers, setOpen }: CreateProjectFormProps) =>
 	return (
 		<div>
 			<form onSubmit={handleSubmit}>
-				<div className="mb-4">
-					<Input
-						label="Nome"
-						className="w-full"
-						placeholder="Perfil do usuário..."
-						value={formData.name}
-						onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-					/>
-				</div>
-				<div className="mb-4">
-					<Input
-						className="w-full"
-						label="Nome"
-						placeholder="Nome..."
-						type="text"
-						value={formData.email}
-						onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-					/>
-				</div>
-				<div className="mb-4">
-					<SelectInput
-						label="Responsável"
-						value={formData.profileId}
-						className="w-full"
-						onChange={(e) => setFormData({ ...formData, profileId: e.target.value })}
-						options={
-							profiles?.map((profile) => ({
-								value: profile.id,
-								label: profile.name,
-							}))
-						}
-					/>
+				<div className="grid grid-cols-3 gap-4">
+					<div className="col-span-2">
+						<div className="mb-4">
+							<Input
+								label="Nome"
+								className="w-full"
+								placeholder="Perfil do usuário..."
+								value={formData.name}
+								onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+							/>
+						</div>
+						<div className="mb-4">
+							<Input
+								className="w-full"
+								label="E-mail"
+								placeholder="E-mail..."
+								type="text"
+								value={formData.email}
+								onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+							/>
+						</div>
+					</div>
+					<div className="col-span-1">
+						<div className="mb-4">
+							<SelectInput
+								label="Perfil"
+								value={formData.profileId}
+								className="w-full"
+								onChange={(e) => setFormData({ ...formData, profileId: e.target.value })}
+								options={
+									profiles?.map((profile) => ({
+										value: profile.id,
+										label: profile.name,
+									}))
+								}
+							/>
+						</div>
+					</div>
 				</div>
 				<div className="mb-4">
 					<ImageInput label="Adicionar Perfil de Usuário" setFile={(e) => setFormData({ ...formData, image: e.file })} />
