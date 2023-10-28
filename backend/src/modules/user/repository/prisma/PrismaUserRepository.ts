@@ -1,24 +1,22 @@
 import { prisma } from "@infra/prisma/client";
 import { UserRepository } from "../user-repository";
 import { User } from "@modules/user/domain/user";
-import { Password } from "@modules/user/domain/value-objects/password";
 import { UserMapper } from "@modules/user/mapper/user-mapper";
-import { UniqueEntityId } from "@core/entities/unique-entity-id";
 
 export class PrismaUserRepository implements UserRepository {
   async create(user: User): Promise<void> {
     const data = await UserMapper.toPersistence(user);
 
     await prisma.user.create({
-      data
+      data,
     });
   }
 
   async findByEmail(email: string): Promise<User> {
     const user = await prisma.user.findFirst({
       where: {
-        email: email
-      }
+        email: email,
+      },
     });
 
     if (!user) return undefined;
@@ -29,8 +27,8 @@ export class PrismaUserRepository implements UserRepository {
   async find(id: string): Promise<User> {
     const user = await prisma.user.findFirst({
       where: {
-        id: id
-      }
+        id: id,
+      },
     });
 
     if (!user) return undefined;
@@ -41,10 +39,21 @@ export class PrismaUserRepository implements UserRepository {
   async list(): Promise<User[]> {
     const users = await prisma.user.findMany({
       orderBy: {
-        created_at: 'asc',
-      }
+        created_at: "asc",
+      },
     });
 
     return users.map((user) => UserMapper.toDomain(user));
+  }
+
+  async save(user: User): Promise<void> {
+    const data = await UserMapper.toPersistence(user);
+
+    await prisma.user.update({
+      where: {
+        id: data.id,
+      },
+      data,
+    });
   }
 }

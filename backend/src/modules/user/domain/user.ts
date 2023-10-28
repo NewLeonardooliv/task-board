@@ -42,6 +42,15 @@ export class User extends Entity<UserProps> {
     return this.props.updatedAt;
   }
 
+  set password(password: Password) {
+    this.props.password = password;
+    this.touch;
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date();
+  }
+
   static create(props: Optional<UserProps, 'createdAt'>, id?: UniqueEntityId) {
     const user = new User({
       ...props,

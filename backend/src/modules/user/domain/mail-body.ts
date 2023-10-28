@@ -1,6 +1,5 @@
-
 export class MailBody {
-  static getHtml() {
+  static getHtml(token: string) {
     return `<!DOCTYPE html>
     <html>
     <head>
@@ -39,7 +38,7 @@ export class MailBody {
         <p>Hello there,</p>
         <p>We are excited to have you on board. You can start managing your tasks, issues, and projects efficiently with Board. Here's to a more organized and productive workflow.</p>
         <p>Get started now by clicking the button below:</p>
-        <a class="button" href="https://your-board-url.com">Get Started</a>
+        <a class="button" href="http://localhost:3001/auth/firstAccess?token=${token}">Get Started</a>
         <p>If you have any questions or need assistance, please don't hesitate to contact our support team.</p>
         <p>Thank you for choosing Board!</p>
       </div>

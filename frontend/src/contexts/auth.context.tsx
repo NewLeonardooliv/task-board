@@ -10,6 +10,7 @@ type AuthContextData = {
 	isSigned: boolean;
 	login: (password: string, email: string) => void;
 	logout: () => void;
+	firstAccess: (password: string, token: string) => void;
 	profile: string;
 }
 
@@ -73,8 +74,24 @@ function AuthProvider({ children }: any) {
 
 	}
 
+	async function firstAccess(password: string, token: string) {
+		try {
+			const { data } = await api.post('user/firstAccess', { token, password });
+
+			setCookie(null, 'token', data.token, {
+				maxAge: ONE_DAY,
+				path: '/',
+			});
+
+			router.push(PATHNAMES.HOME);
+		} catch (error: any) {
+			return false;
+		}
+
+	}
+
 	return (
-		<AuthContext.Provider value={{ isSigned, login, logout, profile }}>{children}</AuthContext.Provider>
+		<AuthContext.Provider value={{ isSigned, login, logout, profile, firstAccess }}>{children}</AuthContext.Provider>
 
 	)
 }

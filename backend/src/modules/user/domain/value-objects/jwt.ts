@@ -3,14 +3,19 @@ import { sign, verify } from 'jsonwebtoken';
 import { auth } from '@config/auth';
 import { User } from '../user';
 
-interface JWTData {
+type JWTData = {
   userId: string
   token: string
 }
 
-export interface JWTTokenPayload {
+export type JWTTokenPayload = {
   exp: number
   sub: string
+}
+
+export type AuthValuesProps = {
+  secretKey: string;
+  expiresIn: string;
 }
 
 export class JWT {
@@ -45,15 +50,15 @@ export class JWT {
     return jwt;
   }
 
-  static async signUser(user: User): Promise<JWT> {
+  static async signUser(user: User, authValues: AuthValuesProps): Promise<JWT> {
     const token = sign(
       {
         userId: user.id.toString(),
         profileId: user.profileId,
       },
-      auth.secretKey,
+      authValues.secretKey,
       {
-        expiresIn: auth.expiresIn,
+        expiresIn: authValues.expiresIn,
       }
     );
 

@@ -16,7 +16,7 @@ model User {
   email         String         @unique
   password      String?
   profile_id    String
-  profile_pic   String
+  profile_pic   String?
   created_at    DateTime       @default(now())
   updated_at    DateTime       @default(now()) @updatedAt
   profile       Profile        @relation(fields: [profile_id], references: [id])

@@ -1,3 +1,4 @@
+import { auth } from "@config/auth";
 import { JWT } from "@modules/user/domain/value-objects/jwt";
 import { UserRepository } from "@modules/user/repository/user-repository";
 
@@ -22,7 +23,7 @@ export class AuthenticateUser {
       throw new Error('Invalid e-mail/password combination.');
     }
 
-    const { token } = await JWT.signUser(user);
+    const { token } = await JWT.signUser(user, auth);
 
     return token;
   }

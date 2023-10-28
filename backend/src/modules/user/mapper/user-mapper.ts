@@ -21,7 +21,7 @@ export class UserMapper {
       name: raw.name,
       email: raw.email,
       profileId: raw.profile_id,
-      password: new Password(raw.password),
+      password: new Password(raw.password, true),
       createdAt: raw.created_at,
       updatedAt: raw.updated_at,
       profilePic: raw.profile_pic

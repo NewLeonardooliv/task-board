@@ -5,10 +5,12 @@ export class Password {
   constructor(public value: string, private readonly hashed?: boolean) {
     this.value = value;
   }
+
   static isValid(password: string): boolean {
     if (!password || password.trim().length < 8) {
       return false;
     }
+
     return true;
   }
 
@@ -20,11 +22,19 @@ export class Password {
       throw new InvalidPasswordError();
     }
 
-    return new Password(password);
+    return new Password(password, hashed);
   }
 
   public async comparePassword(plainTextPassword: string): Promise<boolean> {
-    return await bcrypt.compare(plainTextPassword, this.value);
+    let hashed: string;
+
+    if (this.hashed) {
+      hashed = this.value;
+
+      return await bcrypt.compare(plainTextPassword, hashed);
+    }
+
+    return this.value === plainTextPassword;
   }
 
   public async getHashedValue(): Promise<string> {
