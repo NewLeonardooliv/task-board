@@ -29,6 +29,7 @@ const SelectInput: React.FC<SelectInputProps> = ({ value, options, onChange, ...
 					onChange={onChange}
 					className={`bg-current text-foreground rounded border border-foreground/25 p-2 w-72 m-0 ${props.className}`}
 				>
+					<option value=""></option>
 					{options?.map((option, index) => (
 						<option key={index} value={option.value}>
 							{option.label}
