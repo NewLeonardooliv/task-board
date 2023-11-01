@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Input from "../Input";
 import SelectInput from "../SelectInput";
 import Textarea from "../Textarea";
 import Button from "../Button";
 import fetchBoard from "@/service/fetch.board";
+
 import { TaskProps } from "@/pages/projects/[idProject]/board";
 
 type CreateTaskProps = {
@@ -25,7 +26,7 @@ const CreateTaskForm = ({ tasks, setTasks, projectId, setOpen }: CreateTaskProps
 		type: "Hard",
 	};
 
-	const [formData, setFormData] = useState(cleanForm);
+	const [formData, setFormData] = React.useState(cleanForm);
 
 	const [users, setUsers] = React.useState<any[]>([]);
 	React.useEffect(() => {
