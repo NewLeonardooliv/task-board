@@ -3,9 +3,9 @@ import { User } from "../../domain/user";
 import { Password } from "../../domain/value-objects/password";
 import { UserRepository } from "../../repository/user-repository";
 import { MailBody } from "@modules/user/domain/mail-body";
-import { container } from "tsyringe";
 import { JWT } from "@modules/user/domain/value-objects/jwt";
 import { firstAccessAuth } from "@config/firs-access-token";
+import { IStorageProvider } from "@infra/providers/IStorageProvider";
 
 export type RegisterUserRequest = {
   name: string;
@@ -18,7 +18,8 @@ export type RegisterUserRequest = {
 export class RegisterUser {
   constructor(
     private readonly usersRepository: UserRepository,
-    private readonly mailProvider: IMailProvider
+    private readonly mailProvider: IMailProvider,
+    private readonly storageProvider: IStorageProvider,
   ) { }
 
   async execute({
@@ -36,6 +37,10 @@ export class RegisterUser {
 
     if (!password) {
       password = Password.default(name);
+    }
+
+    if (profilePic) {
+      profilePic = await this.storageProvider.save(profilePic, 'user');
     }
 
     const user = User.create({

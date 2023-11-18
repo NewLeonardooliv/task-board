@@ -15,7 +15,7 @@ const config = {
 				}
 				const fileName = `${hash.toString('hex')}-${file.originalname}`;
 
-				callback(null, fileName);
+				callback(null, fileName);	
 			});
 		},
 	}),

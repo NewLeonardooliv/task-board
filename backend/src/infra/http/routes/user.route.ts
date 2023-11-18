@@ -1,24 +1,21 @@
-// import multer from "multer";
+import multer from "multer";
 
 import { adapterRoute } from "@core/infra/adapters/ExpressRouteAdapter";
 import { authenticateUserController } from "@infra/factories/controllers/authenticate-user-controller-factory";
 import { listUsersController } from "@infra/factories/controllers/list-users-controller-factory ";
 import { registerUserController } from "@infra/factories/controllers/register-user-controller-factory ";
 import { Router } from "express";
-// import { config } from "@config/upload";
+import { config } from "@config/upload";
 import { firstAccessController } from "@infra/factories/controllers/first-access-controller-factory";
 import { listProfilesController } from "@infra/factories/controllers/list-profiles-controller-factory";
-import uploadFile, { upload } from "@config/uploadFirebase";
 
 const user = Router();
-// const upload = multer(config);
+const upload = multer(config);
 
-user.post("/upload", upload.single("image"), uploadFile);
 user.post(
   "/",
   upload.single("image"),
   adapterRoute(registerUserController),
-  uploadFile
 );
 user.post("/signin", adapterRoute(authenticateUserController));
 user.get("/", adapterRoute(listUsersController));
